@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Spring Boot Projekt-Angebote bearbeiten</title>
+
+    <body>
+        <h1>Braten erfassen und bearbeiten</h1>
+        <form th:action="@{/angebote}" th:method="POST" th:object="${angebotform}">
+            <label>Anbieter: <input type="text" th:field="*{name}"/></label><br/>
+            <label>Abholort: <input type="text" th:field="*{abholort}"/></label><br/>
+            <label>Beschreibung: <input type="text" th:field="*{beschreibung}"/></label><br/>
+            <label>Haltbar bis: <input type="date" th:field="*{haltbarbis}"/></label><br/>
+            <input type="submit" name="Abschicken"/>
+        </form>
+
+    </body>
+</head>
+
+</html>

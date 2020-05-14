@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring Boot Projekt-Login</title>
+</head>
+<body>
+    <h1>LOGIN</h1>
+    <p th:text="${hinweis}"></p>
+    <form action="/login" method="POST">
+        <label>username</label><br/>
+        <label><input type="text" name="username"/></label><br/><br/>
+        <label>password</label><br/>
+        <label><input type="password" name="password"/></label><br/><br/>
+       <button type="submit" >Anmelden</button>
+    </form>
+</body>
+</html>
