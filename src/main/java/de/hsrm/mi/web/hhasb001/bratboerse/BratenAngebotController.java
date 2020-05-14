@@ -73,7 +73,7 @@ public class BratenAngebotController {
         m.addAttribute("angebotform", daten);
 
         logger.info("objekt bra: {}", daten.abholort);
-        return "angebote/bearbeiten";
+        return "angebote/bearbeiten"; 
     }
 
     @GetMapping("/angebote/{index}/delete")
