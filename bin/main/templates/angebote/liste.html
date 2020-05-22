@@ -13,6 +13,7 @@
                     <th>Anbieter</th>
                     <th>Abholort</th>
                     <th>Beschreibung</th>
+                    <th>Veggi</th>
                     <th>bearbeiten</th>
                     <th>löschen</th>
                 </tr>
@@ -23,6 +24,7 @@
                     <td th:text="${a.name}"></td>
                     <td th:text="${a.abholort}"></td>
                     <td th:text="${a.beschreibung}"></td>
+                    <td th:text="${a.vgrad}"></td>
                     <td><a th:href="@{/angebote/{number}(number = ${angebote.indexOf(a)})}"><button>edit</button></a></td>
                     <td><a th:href="@{/angebote/{number}/delete(number = ${angebote.indexOf(a)})}"><button>delete</button></a></td>
                 </tr>

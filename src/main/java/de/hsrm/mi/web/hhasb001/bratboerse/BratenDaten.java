@@ -1,12 +1,34 @@
 package de.hsrm.mi.web.hhasb001.bratboerse;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class BratenDaten {
-    String name; 
+
+    @Size(min = 3, max = 80, message ="Muss mindestens {min} Zeichen sein.")
+    @NotNull
+    String name;
+
+    @Size(min = 1, max = 80, message = "Darf nicht leer sein.")
+    @NotNull
     String abholort; 
-    Date haltbarbis; 
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future
+    @NotNull(message = "Darf nicht leer, oder in der Vergangenheit sein.")
+    LocalDate haltbarbis; 
+
+    @Size(min=1, max = 80, message="Beschreibung muss mindestens {min} und maximal {max} Zeichen lang sein")
+    @NotNull
     String beschreibung; 
+
+    int vgrad;
 
     /*Getter und Setter */
     public String getName(){
@@ -15,7 +37,7 @@ public class BratenDaten {
     public String getAbholort(){
         return abholort;
     }
-    public Date getHaltbarbis(){
+    public LocalDate getHaltbarbis(){
         return haltbarbis;
     }
     public String getBeschreibung(){
@@ -27,11 +49,17 @@ public class BratenDaten {
     public void setAbholort(String abholort){
         this.abholort = abholort;
     }
-    public void setHaltbarbis(Date haltbarbis){
+    public void setHaltbarbis(LocalDate haltbarbis){
         this.haltbarbis = haltbarbis;
     }
     public void setBeschreibung(String beschreibung){
         this.beschreibung = beschreibung;
+    } 
+    public int getVgrad() {
+        return vgrad;
+    }
+    public void setVgrad(int vgrad) {
+        this.vgrad = vgrad;
     }
     /*To String-Methode*/ 
     @Override
@@ -39,5 +67,7 @@ public class BratenDaten {
 
         return "Name: " +name+ "\n Abholort: " +abholort+ "\n Haltbar bis: "+haltbarbis+ "\n Beschreibung: "+beschreibung+ "";
     }
+
+  
 
 }

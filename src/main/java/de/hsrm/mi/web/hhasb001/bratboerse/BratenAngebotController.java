@@ -1,20 +1,28 @@
 package de.hsrm.mi.web.hhasb001.bratboerse;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import de.hsrm.mi.web.hhasb001.validation.GuteAdresse;
 
 
 @Controller
+@Validated
 //@RequestMapping("/angebot")
 @SessionAttributes(names = {"angebote"})
 public class BratenAngebotController {
@@ -28,19 +36,23 @@ public class BratenAngebotController {
         b1.setName("Jönhard");
         b1.setAbholort("Vollradisroda");
         b1.setBeschreibung("leckerer Grünkohlbraten");
-        b1.setHaltbarbis(Date.valueOf("2020-05-06"));
+        b1.setHaltbarbis(LocalDate.of(2020, 05, 20));
+        b1.setVgrad(25);
 
         BratenDaten b2 = new BratenDaten(); 
         b2.setName("Friedferd");
         b2.setAbholort("Arnescha");
         b2.setBeschreibung("Plataschinkenbraten aus Ö");
-        b2.setHaltbarbis(Date.valueOf("2020-04-05"));
+        b2.setHaltbarbis(LocalDate.of(2020, 04, 05));
+        b1.setVgrad(50);
+
 
         BratenDaten b3 = new BratenDaten(); 
         b3.setName("Joghurta");
         b3.setAbholort("Diedlingen");
         b3.setBeschreibung("Gummibärchenbraten, frisch ");
-        b3.setHaltbarbis(Date.valueOf("2020-05-07"));
+        b3.setHaltbarbis(LocalDate.of(2020, 07, 11));
+        b1.setVgrad(100);
 
         listBraten.add(b1);
         listBraten.add(b2);
@@ -62,9 +74,16 @@ public class BratenAngebotController {
         return "angebote/bearbeiten";
     }
     @PostMapping("/angebote")
-    public String angEinf(@ModelAttribute("angebotform") BratenDaten daten, @ModelAttribute("angebote") ArrayList<BratenDaten> list){
-        list.add(daten);
-        return "angebote/liste";
+    public String angEinf(@ModelAttribute("angebotform") @Valid BratenDaten daten,  BindingResult result, @ModelAttribute("angebote") ArrayList<BratenDaten> list, Model m /*,@GuteAdresse @RequestParam("abholort") String value*/){
+
+        if(result.hasErrors()){
+            m.addAttribute("angebotform", daten);
+            return "angebote/bearbeiten";
+        }
+            list.add(daten);
+            return "angebote/liste";
+        
+        
     }
     @GetMapping("/angebote/{index}")
     public String edit(@PathVariable int index, @ModelAttribute("angebote") ArrayList<BratenDaten> list, @ModelAttribute("angebotform") BratenDaten daten, Model m){
