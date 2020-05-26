@@ -25,13 +25,13 @@
                     <td th:text="${a.abholort}"></td>
                     <td th:text="${a.beschreibung}"></td>
                     <td th:text="${a.vgrad}"></td>
-                    <td><a th:href="@{/angebote/{number}(number = ${angebote.indexOf(a)})}"><button>edit</button></a></td>
-                    <td><a th:href="@{/angebote/{number}/delete(number = ${angebote.indexOf(a)})}"><button>delete</button></a></td>
+                    <td><a th:href="@{/angebot/{number}(number = ${angebote.indexOf(a)})}"><button>edit</button></a></td>
+                    <td><a th:href="@{/angebot/{number}/delete(number = ${angebote.indexOf(a)})}"><button>delete</button></a></td>
                 </tr>
 
             </tbody>
         </table>
-       <a th:href="@{/angebote/neu}"><button>Neuen Braten anbieten</button></a>
+       <a th:href="@{/angebot/neu}"><button>Neuen Braten anbieten</button></a>
     
     </body>
 </head>

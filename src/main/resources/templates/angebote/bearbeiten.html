@@ -4,31 +4,33 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="/resources/static/angebote/angebotestyle.css">
+        <link rel="stylesheet" type="text/css" href="angebotestyle.css">
         <title>Spring Boot Projekt-Angebote bearbeiten</title>
 
     <body>
-        <h1>Braten erfassen und bearbeiten</h1>
-        <form th:action="@{/angebote}" th:method="POST" th:object="${angebotform}">
-            <label>Anbieter: <input type="text" th:field="*{name}" th:errorclass="angebote-style" class="input"/></label>
+        <h1 th:text="#{headline}"></h1>
+        <form th:action="@{/angebot}" th:method="POST" th:object="${angebotform}">
+            <label th:text="#{name}"></label><input type="text" th:field="*{name}" th:errorclass="errortext" class="input"/>
             <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errortext">Name falsch</label><br/>
 
-            <label>Abholort: <input type="text" th:field="*{abholort}"/></label>
-            <label th:if="${#fields.hasErrors('abholort')}" th:errors="*{abholort}">Name falsch</label><br/>
+            <label th:text="#{abholort}"></label> <input type="text" th:field="*{abholort}" th:errorclass="errortext" class="input"/>
+            <label th:if="${#fields.hasErrors('abholort')}" th:errors="*{abholort}" class="errortext">Name falsch</label><br/>
 
-            <label>Beschreibung: <input type="text" th:field="*{beschreibung}"/></label>
-            <label th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}">Name falsch</label><br/>
+            <label th:text="#{beschreibung}"></label><input type="text" th:field="*{beschreibung}" th:errorclass="errortext" class="input"/>
+            <label th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}" class="errortext">Name falsch</label><br/>
 
-            <label>Haltbar bis: <input type="date" th:field="*{haltbarbis}"/></label>
-            <label th:if="${#fields.hasErrors('haltbarbis')}" th:errors="*{haltbarbis}">Name falsch</label><br/>
+            <label th:text="#{haltbarbis}"></label> <input type="date" th:field="*{haltbarbis}" th:errorclass="errortext" class="input"/>
+            <label th:if="${#fields.hasErrors('haltbarbis')}" th:errors="*{haltbarbis}" class="errortext">Name falsch</label><br/>
 
-            <label>Vegetarizität<select name="veg" size="1" th:field="*{vgrad}">
+            <label th:text="#{vgrad}"></label><select name="veg" size="1" th:field="*{vgrad}">
                 <option th:value="0">0%</option>
                 <option th:value="25">25%</option>
                 <option th:value="50">50%</option>
                 <option th:value="75">75%</option>
                 <option th:value="100">100%</option>
-            </select></label>
+            </select>
+            <label th:if="${#fields.hasErrors('vgrad')}" th:errors="*{vgrad}" class="errortext">Name falsch</label><br/>
+
             <br/>
             <input type="submit" name="Abschicken"/>
         </form>
