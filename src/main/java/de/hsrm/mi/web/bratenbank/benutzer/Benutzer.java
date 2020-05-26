@@ -3,6 +3,11 @@ package de.hsrm.mi.web.bratenbank.benutzer;
 import java.beans.JavaBean;
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

@@ -43,7 +43,6 @@ public class BratenAngebotController {
         b2.setHaltbarbis(LocalDate.of(2020, 04, 05));
         b2.setVgrad(50);
 
-
         BratenDaten b3 = new BratenDaten(); 
         b3.setName("Joghurta");
         b3.setAbholort("Diedlingen");
@@ -67,7 +66,7 @@ public class BratenAngebotController {
     }
     @GetMapping("/angebot/neu")
     public String getForm(Model m, Locale locale){
-        m.addAttribute("sprache", locale.getDisplayLanguage());
+        m.addAttribute("sprache", locale.getLanguage());
         m.addAttribute("angebotform",  new BratenDaten());
         return "angebote/bearbeiten";
     }

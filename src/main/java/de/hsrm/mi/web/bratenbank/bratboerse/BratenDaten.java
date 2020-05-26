@@ -2,32 +2,29 @@ package de.hsrm.mi.web.bratenbank.bratboerse;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
-
 import de.hsrm.mi.web.bratenbank.validation.GuteAdresse;
 
-@Validated
 public class BratenDaten {
 
-    @Size(min = 3, max = 80, message ="{name}")
-    @NotNull
+    @Size(min = 3, max = 80, message ="{name.fehler}")
+    @NotEmpty
     String name;
 
-    @GuteAdresse(message = "{abholort}")
+    @GuteAdresse(message = "{abholort.fehler}")
     String abholort; 
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future
-    @NotNull(message = "{haltbarbis}")
+    @FutureOrPresent
+    //@NotEmpty(message = "{haltbarbis.fehler}")
     LocalDate haltbarbis; 
 
-    @Size(min=1, max = 80, message="{beschreibung}")
-    @NotNull
+    @Size(min=1, max = 80, message="{beschreibung.fehler}")
+    @NotEmpty
     String beschreibung; 
 
     int vgrad;

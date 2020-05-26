@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import de.hsrm.mi.web.bratenbank.bratboerse.BratenAngebotController;
 
-@Disabled  // OPTIONALE AUFGABE - Wenn Sie den Test verwenden wollen, kommentieren Sie das @Disabled aus
+//@Disabled  // OPTIONALE AUFGABE - Wenn Sie den Test verwenden wollen, kommentieren Sie das @Disabled aus
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class Web_Ueb04_A4_I18n_und_L10n_OPTIONAL {
