@@ -1,9 +1,12 @@
 package de.hsrm.mi.web.bratenbank.benutzer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Service
 public class BenutzerServiceImpl implements BenutzerService{
+    @Autowired BenutzerRepository benutzerrepo;
 
     @Override
     public boolean pruefeLogin(String loginname, String passwort) {
@@ -21,20 +24,41 @@ public class BenutzerServiceImpl implements BenutzerService{
     @Override
     public String ermittlePasswort(String loginname) {
         // TODO Auto-generated method stub
-        int laenge = loginname.length();
-        String passwort =(new StringBuffer(loginname).append(laenge).toString());
-        return passwort;
+
+
+        Benutzer b= findeBenutzer(loginname);
+        if(b != null){
+            return b.getPasswort();
+        }else{
+            int laenge = loginname.length();
+            String passwort =(new StringBuffer(loginname).append(laenge).toString());
+            return passwort;
+        }
+
+       
     }
 
     @Override
-    public Benutzer registriereBenutzer(Benutzer neubenutzer) {
+    public Benutzer registriereBenutzer(Benutzer neubenutzer)throws BenutzernameSchonVergeben {
         // TODO Auto-generated method stub
-        return null;
+
+        if(benutzerrepo.findByLoginname(neubenutzer.getLoginname()) != null){
+            throw new BenutzernameSchonVergeben();
+        }else{
+            neubenutzer = benutzerrepo.save(neubenutzer);
+            return neubenutzer;
+        }
     }
 
     @Override
     public Benutzer findeBenutzer(String loginname) {
         // TODO Auto-generated method stub
+        for(Benutzer x : benutzerrepo.findAll()){
+            if(x.getLoginname().equals(loginname)){
+                return x; 
+            }
+        }
+
         return null;
     }
 

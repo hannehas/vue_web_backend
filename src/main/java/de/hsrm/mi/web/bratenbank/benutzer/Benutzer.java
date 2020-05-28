@@ -1,17 +1,13 @@
 package de.hsrm.mi.web.bratenbank.benutzer;
 
-import java.beans.JavaBean;
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
 public class Benutzer{
@@ -24,14 +20,14 @@ public class Benutzer{
     private long version; 
 
     @Column(name="LOGINNAME", unique=true)
-    @NotNull
+    @NotEmpty(message = "Loginname fehlt")
     String loginname; 
 
-    @Size(min = 3, max = 15)
-    @NotNull
+    @Size(min = 3, message = "")
+    @NotEmpty(message = "Passwort falsch")
     String passwort;
 
-    @NotNull
+    @NotEmpty(message = "Name fehlt")
     String vollname;
 
     boolean nutzungsbedingungenok;

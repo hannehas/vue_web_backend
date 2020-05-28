@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="angebotestyle.css">
+        <title>Benutzer registrieren</title>
+    </head>
+    <body>
+        <h1>Benutzer registrieren</h1>
+        <form th:action="@{/benutzer}" th:method="POST" th:object="${benutzer}">
+            <label>Loginname</label>
+            <input type="text" th:field="*{loginname}" th:errorclass="errortext"/><br/>
+            <label th:if="${#fields.hasErrors('loginname')}" th:errors="*{loginname}" class="errortext"></label><br/><br/>
+
+            <label>Vollname</label>
+            <input type="text" th:field="*{vollname}" th:errorclass="errortext"/><br/>
+            <label th:if="${#fields.hasErrors('vollname')}" th:errors="*{vollname}"  class="errortext"></label><br/><br/>
+
+            <label>Passwort</label>
+            <input type="password" th:field="*{passwort}" th:errorclass="errortext"/><br/>
+            <label th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"  class="errortext"></label><br/><br/>
+
+            <label>Nutzerbedingung</label>
+            <input type="checkbox" id="nutzungsbedingungenok" th:field="*{nutzungsbedingungenok}"/>
+            <label for="nutzungsbedingungenok" value= "true">akzeptieren</label><br><br/><br/>
+
+
+            <input type="submit" name="Senden"/>
+
+        </form>
+    </body>
+
+
+</html>

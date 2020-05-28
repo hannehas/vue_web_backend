@@ -3,7 +3,7 @@ package de.hsrm.mi.web.bratenbank.bratboerse;
 import java.time.LocalDate;
 
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +12,7 @@ import de.hsrm.mi.web.bratenbank.validation.GuteAdresse;
 public class BratenDaten {
 
     @Size(min = 3, max = 80, message ="{name.fehler}")
-    @NotEmpty
+    @NotNull
     String name;
 
     @GuteAdresse(message = "{abholort.fehler}")
@@ -20,11 +20,11 @@ public class BratenDaten {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @FutureOrPresent
-    //@NotEmpty(message = "{haltbarbis.fehler}")
+    @NotNull(message = "{haltbarbis.fehler}")
     LocalDate haltbarbis; 
 
     @Size(min=1, max = 80, message="{beschreibung.fehler}")
-    @NotEmpty
+    @NotNull
     String beschreibung; 
 
     int vgrad;
