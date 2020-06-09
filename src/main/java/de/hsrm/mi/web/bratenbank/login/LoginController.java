@@ -6,13 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
-import de.hsrm.mi.web.bratenbank.benutzer.Benutzer;
 import de.hsrm.mi.web.bratenbank.benutzer.BenutzerService;
 
 @Controller
@@ -33,10 +29,14 @@ public class LoginController {
         boolean correct = benutzerservice.pruefeLogin(username, password);
         String c = benutzerservice.ermittlePasswort(username);
         
-
         if(correct){
+
+            if(username.contains("alt")){
+                return "redirect:angebot";
+            }else{
             m.addAttribute("loggedinusername", username);
             return "redirect:braten/angebot";
+            }
         }
         else{
            logger.info("Hinweis: Das korrekte Passwort für {} ist {}", username, c);
