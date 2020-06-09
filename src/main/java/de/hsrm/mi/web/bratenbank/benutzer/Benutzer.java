@@ -1,13 +1,19 @@
 package de.hsrm.mi.web.bratenbank.benutzer;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import de.hsrm.mi.web.bratenbank.bratrepo.Braten;
 
 @Entity
 public class Benutzer{
@@ -18,6 +24,9 @@ public class Benutzer{
 
     @Version
     private long version; 
+
+    @OneToMany(mappedBy = "anbieter")
+    private Collection<Braten> angebote = new ArrayList<Braten>(); 
 
     @Column(name="LOGINNAME", unique=true)
     @NotEmpty(message = "Loginname fehlt")
@@ -96,6 +105,26 @@ public class Benutzer{
     public String toString() {
         return "Benutzer [loginname=" + loginname + ", nutzungsbedingungenok=" + nutzungsbedingungenok + ", passwort="
                 + passwort + ", vollname=" + vollname + "]";
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
+    public Collection<Braten> getAngebote() {
+        return angebote;
     }
     
     

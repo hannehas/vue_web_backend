@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring Boot Projekt-Angebote</title>
+    <body>
+        <h1>Aktuelle Angebote</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Haltbar bis</th>
+                    <!--<th>Anbieter</th>-->
+                    <th>Abholort</th>
+                    <th>Beschreibung</th>
+                    <th>Veggi</th>
+                    <th>bearbeiten</th>
+                    <th>löschen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="a: ${angebote}">
+                    <td th:text="${a.haltbarbis}"></td>
+                   <!-- <td th:text="${a.name}"></td>-->
+                    <td th:text="${a.abholort}"></td>
+                    <td th:text="${a.beschreibung}"></td>
+                    <td th:text="${a.vgrad} +'%'"></td>
+                    <td><a th:href="@{'/braten/angebot/'+ ${a.id}}"><button>edit</button></a></td>
+                    <td><a th:href="@{'/braten/angebot/'+ ${a.id}+'/del'}"><button>delete</button></a></td>
+                </tr>
+
+            </tbody>
+        </table>
+       <a th:href="@{/braten/angebot/neu}"><button>Neuen Braten anbieten</button></a>
+    
+    </body>
+</head>
+</html>

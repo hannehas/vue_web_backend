@@ -6,15 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import de.hsrm.mi.web.bratenbank.benutzer.Benutzer;
 import de.hsrm.mi.web.bratenbank.benutzer.BenutzerService;
 
 @Controller
+@SessionAttributes(names = {"loggedinusername"})
 public class LoginController {
     Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired BenutzerService benutzerservice;
+    String loggedinusername;
 
 
     @GetMapping("/login")
@@ -23,14 +29,14 @@ public class LoginController {
     }
     @PostMapping("/login")
     public String pruefLog(Model m, @RequestParam("username") String username, @RequestParam("password") String password){
-        // int laenge = username.length();
-        // String c =(new StringBuffer(username).append(laenge).toString());
+        
         boolean correct = benutzerservice.pruefeLogin(username, password);
         String c = benutzerservice.ermittlePasswort(username);
         
 
         if(correct){
-            return "redirect:angebot";
+            m.addAttribute("loggedinusername", username);
+            return "redirect:braten/angebot";
         }
         else{
            logger.info("Hinweis: Das korrekte Passwort für {} ist {}", username, c);
