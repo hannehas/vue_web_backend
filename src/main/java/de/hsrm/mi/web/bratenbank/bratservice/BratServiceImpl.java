@@ -39,13 +39,8 @@ public class BratServiceImpl implements BratenService {
     @Transactional
     @Override
     public Braten editBraten(String loginname, Braten braten) {
-        // TODO Auto-generated method stub
-         //Benutzer b = benutzerrep.findByLoginname(loginname);
-        // b.getAngebote().add(braten);
-         //braten.setAnbieter(b);
 
          try{
-             //braten.setAnbieter(benutzerrep.findByLoginname(loginname));
              Benutzer b = benutzerrep.findByLoginname(loginname);
              braten.setAnbieter(b);
              br.save(braten);

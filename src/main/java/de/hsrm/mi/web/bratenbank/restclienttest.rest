@@ -1,0 +1,6 @@
+GET http://numbersapi.com/17
+Content-Type: application/json
+
+###
+
+GET http://numbersapi.com/2020/year

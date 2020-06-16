@@ -2,8 +2,6 @@ package de.hsrm.mi.web.bratenbank.benutzer;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,18 +11,25 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import de.hsrm.mi.web.bratenbank.bratrepo.Braten;
 
 @Entity
 public class Benutzer{
 
+    @JsonIgnore
     @Id
     @GeneratedValue
     private long id; 
 
+    @JsonIgnore
     @Version
     private long version; 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "anbieter")
     private Collection<Braten> angebote = new ArrayList<Braten>(); 
 
@@ -32,6 +37,7 @@ public class Benutzer{
     @NotEmpty(message = "Loginname fehlt")
     String loginname; 
 
+    @JsonProperty(access =Access.WRITE_ONLY)
     @Size(min = 3, message = "")
     @NotEmpty(message = "Passwort falsch")
     String passwort;
