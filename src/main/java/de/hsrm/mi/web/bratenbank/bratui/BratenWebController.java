@@ -1,5 +1,6 @@
 package de.hsrm.mi.web.bratenbank.bratui;
 
+import java.security.Principal;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class BratenWebController {
     }
     
     @PostMapping("/braten/angebot/neu")
-    public String angEinf(@ModelAttribute("angebotform") @Valid Braten daten, BindingResult result, @ModelAttribute("loggedinusername") String log, 
+    public String angEinf(@ModelAttribute("angebotform") @Valid Braten daten, BindingResult result, Principal prinz, 
         Model m){
 
         if(result.hasErrors()){
@@ -55,8 +56,8 @@ public class BratenWebController {
             return "braten/bearbeiten";
         }
         try{
-            logger.info("loginname", log);
-            bs.editBraten(benutzerservice.findeBenutzer(log).getLoginname(), daten);
+            logger.info("loginname", prinz.getName());
+            bs.editBraten(benutzerservice.findeBenutzer(prinz.getName()).getLoginname(), daten);
             
         }catch(BratenServiceException bx){
             return "braten/bearbeiten";

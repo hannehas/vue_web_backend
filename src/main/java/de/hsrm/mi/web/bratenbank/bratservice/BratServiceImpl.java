@@ -8,7 +8,6 @@ import javax.persistence.OptimisticLockException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +40,8 @@ public class BratServiceImpl implements BratenService {
 
     @Transactional
     @Override
-    @SendTo("/topic/braten")
     public Braten editBraten(String loginname, Braten braten) {
-        BratenMessage bm = new BratenMessage();
+        BratenMessage bm;
 
          try{
              Benutzer b = benutzerrep.findByLoginname(loginname);
@@ -51,8 +49,9 @@ public class BratServiceImpl implements BratenService {
              br.save(braten);
              logger.info("Username:" + loginname+ " Gesucht:" +b+"");
              braten.getAnbieter().getAngebote().add(braten);
-             bm.operation = "change";
-             broker.convertAndSend("/topic/braten", bm.operation);
+             
+             bm = new BratenMessage("change", braten);
+             broker.convertAndSend("/topic/braten", bm);
          }catch(OptimisticLockException ox){
              throw new BratenServiceException();
          }
@@ -60,11 +59,9 @@ public class BratServiceImpl implements BratenService {
     }
 
     @Override
-    @SendTo("/topic/braten")
     public void loescheBraten(int bratendatenid) {
-        BratenMessage bm = new BratenMessage();
-        bm.operation = "delete";
-        broker.convertAndSend("/topic/braten", bm.operation);
+        BratenMessage bm = new BratenMessage("delete", br.findById(bratendatenid).get());
+        broker.convertAndSend("/topic/braten", bm);
         br.deleteById(bratendatenid);
 
     }
