@@ -28,31 +28,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder authmanagerbuilder) throws Exception{
-        PasswordEncoder pwenc = getPasswordEncoder();
+      //  PasswordEncoder pwenc = getPasswordEncoder();
 
         authmanagerbuilder.userDetailsService(bs).passwordEncoder(getPasswordEncoder());
 
 
-        authmanagerbuilder.inMemoryAuthentication()
+      /*  authmanagerbuilder.inMemoryAuthentication()
             .withUser("friedfert")
             .password(pwenc.encode("dingdong"))
             .roles("USER")
         .and()
             .withUser("joghurta")
             .password(pwenc.encode("geheim123"))
-            .roles("USER");
+            .roles("USER");*/
 
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
             .antMatchers("/css/*").permitAll()
-            .antMatchers("/benutzer*", "/benutzer").permitAll()
-            .antMatchers("/api*").permitAll()
-            .antMatchers("/stompbroker*").permitAll()
+            .antMatchers("/benutzer/*", "/benutzer").permitAll()
+            .antMatchers("/api/*").permitAll()
+            .antMatchers("/stompbroker").permitAll()
             .antMatchers("/logout").permitAll()
             .antMatchers("/braten/*").authenticated()
-            .anyRequest().hasAnyRole("USER")
+            .anyRequest().authenticated()
         .and()
             .formLogin()
             .loginPage("/login")
@@ -62,7 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
             .logoutUrl("/logout")
             .logoutSuccessUrl("/login")
-            .permitAll();
+            .permitAll()
+        .and()
+            .csrf()
+            .disable();
+    
 
     }
     @Service
@@ -79,8 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .withUsername(username)
             .password(getPasswordEncoder().encode(ben.getPasswort()))
             .roles("USER")
-            .build();
-        
+            .build();        
     }
     
 }

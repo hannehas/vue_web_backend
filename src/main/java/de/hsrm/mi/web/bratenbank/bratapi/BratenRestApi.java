@@ -20,7 +20,6 @@ import de.hsrm.mi.web.bratenbank.benutzer.Benutzer;
 import de.hsrm.mi.web.bratenbank.benutzer.BenutzerService;
 import de.hsrm.mi.web.bratenbank.bratrepo.Braten;
 import de.hsrm.mi.web.bratenbank.bratservice.BratenService;
-import de.hsrm.mi.web.bratenbank.bratservice.BratenServiceException;
 
 @RestController
 @RequestMapping("/api")
